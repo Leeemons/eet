@@ -6,7 +6,7 @@ namespace Mews.Eet.Communication
     {
         public RsaPkCs1Sha256SignatureDescription()
         {
-            KeyAlgorithm = typeof(RSACryptoServiceProvider).FullName;
+            KeyAlgorithm = typeof(RSA).FullName;
             DigestAlgorithm = typeof(SHA256CryptoServiceProvider).FullName;
             FormatterAlgorithm = typeof(RSAPKCS1SignatureFormatter).FullName;
             DeformatterAlgorithm = typeof(RSAPKCS1SignatureDeformatter).FullName;

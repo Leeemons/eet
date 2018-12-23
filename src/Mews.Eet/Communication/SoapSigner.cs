@@ -31,7 +31,7 @@ namespace Mews.Eet.Communication
 
         private string DigestMethod { get; }
 
-        private RSACryptoServiceProvider RsaKey { get; }
+        private RSA RsaKey { get; }
 
         private Certificate Certificate { get; }
 
@@ -88,22 +88,17 @@ namespace Mews.Eet.Communication
             return xmlDoc;
         }
 
-        private RSACryptoServiceProvider GetRsaKey(SignAlgorithm signAlgorithm, X509Certificate2 certificate)
+        private RSA GetRsaKey(SignAlgorithm signAlgorithm, X509Certificate2 certificate)
         {
             if (signAlgorithm == SignAlgorithm.Sha1)
             {
-                return certificate.PrivateKey as RSACryptoServiceProvider;
+                return certificate.GetRSAPrivateKey();
             }
 
             if (signAlgorithm == SignAlgorithm.Sha256)
             {
-                var key = certificate.PrivateKey as RSACryptoServiceProvider;
-                var cspKeyContainerInfo = new RSACryptoServiceProvider().CspKeyContainerInfo;
-                var cspParameters = new CspParameters(cspKeyContainerInfo.ProviderType, cspKeyContainerInfo.ProviderName, key.CspKeyContainerInfo.KeyContainerName)
-                {
-                    Flags = Certificate.UseMachineKeyStore ? CspProviderFlags.UseMachineKeyStore : CspProviderFlags.NoFlags
-                };
-                return new RSACryptoServiceProvider(cspParameters);
+                
+                return certificate.GetRSAPrivateKey();
             }
 
             throw new InvalidEnumArgumentException($"Unsupported signing algorithm {signAlgorithm}.");
