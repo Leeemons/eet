@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/MewsSystems/eet.svg?branch=master)](https://travis-ci.org/MewsSystems/eet)
 
 # EET
 EET stands for Elektronická Evidence Tržeb, which is Czech version of Fiscal Printers.
